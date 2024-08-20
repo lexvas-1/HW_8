@@ -15,6 +15,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 @DisplayName("Набор параметризированных тестов для ИМ 123")
 public class ParametrizedTests {
+
     @BeforeEach
     void setUp() {
         Configuration.baseUrl = "https://www.123.ru/";
@@ -29,7 +30,7 @@ public class ParametrizedTests {
     @ParameterizedTest(name = "Добавление из категории {0}")
     @Tag("Smoke")
     @Tag("High")
-    @Tag("Команда 1")
+    @Tag("Команда_1")
     void addToCartFromCategoriesTest(String category) {
         open(category);
         $(".buy-block").$(byText("в корзину")).click();
@@ -44,7 +45,7 @@ public class ParametrizedTests {
     @ParameterizedTest(name = "Добавление из КТ артикула {0}")
     @Tag("Smoke")
     @Tag("Medium")
-    @Tag("Команда 1")
+    @Tag("Команда_1")
     void addToCardFromSearchTest(String articul) {
         $("#searchinput").setValue(articul).pressEnter();
         $(".pc-button-pay").click();
@@ -59,7 +60,7 @@ public class ParametrizedTests {
     @ParameterizedTest(name = "В хедере регион {0} имеет телефон {1}")
     @Tag("Smoke")
     @Tag("Medium")
-    @Tag("Команда 2")
+    @Tag("Команда_2")
     void checkRegionHeaderTest(String city, String number) {
         open("/");
         $(".select-city").click();
@@ -68,6 +69,4 @@ public class ParametrizedTests {
         $(".wr__tel").shouldHave(text(number));
 
     }
-
-
 }
