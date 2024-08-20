@@ -3,9 +3,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
+
+import java.util.stream.Stream;
+
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -69,4 +70,25 @@ public class ParametrizedTests {
         $(".wr__tel").shouldHave(text(number));
 
     }
+
+  @DisplayName("Подсказки в поиске")
+    @MethodSource
+    @ParameterizedTest(name = "При введенном запросе {0} есть подсказка {1}")
+    @Tag("Smoke")
+    @Tag("Medium")
+    @Tag("Команда_4")
+    void popularCaregorySearchTest(String query, String result) {
+        open("/");
+        $("#searchinput").setValue(query);
+        $(".digi-autocomplete-container").shouldHave(text(result));
+
+    }
+ static Stream<Arguments>  popularCaregorySearchTest() {
+        return Stream.of(
+                Arguments.of("виде", "видеокарта"),
+                Arguments.of("сма", "смартфоны")
+                );
+    }
+
+
 }
